@@ -4,7 +4,7 @@ if (process.env.NODE_ENV != "production") {
 
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 4000;
+const port = 8080;
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
@@ -28,6 +28,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
 
+// const mongodbUrl = "mongodb://127.0.0.1:27017/wanderscape";
 const dbUrl = process.env.ATLASDB_URL;
 
 main()
@@ -80,16 +81,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/demouser", async (req, res) => {
-//   let fakeuser = new User({
-//     email: "student@gmail.com",
-//     username: "delta-student",
-//   });
-//   let registeredUser = await User.register(fakeuser, "helloworld");
-//   console.log(registeredUser);
-//   res.send(registeredUser);
-// });
-
 // * Routes
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
@@ -103,7 +94,6 @@ app.use((req, res, next) => {
 // * Error handler
 app.use((err, req, res, next) => {
   let { status = 500, message = "Something went wrong!" } = err;
-  // res.status(status).send(message);
   res.status(status).render("error.ejs", { message });
 });
 
