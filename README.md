@@ -2,7 +2,7 @@
 
 **WanderScape** is a full-stack rental marketplace platform built to connect property owners with renters. It follows the **MVC (Model-View-Controller) architecture** for maintainability, scalability, and clean separation of concerns.  
 
-🚀 **[https://wanderscape-full-stack-rental.onrender.com/listings](#)**  
+🚀 **[Live Demo – Coming Soon](https://wanderscape-full-stack-rental.onrender.com/listings)**  
 
 ---
 
