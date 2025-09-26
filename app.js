@@ -6,15 +6,10 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const mongoose = require("mongoose");
-// const Listing = require("./models/listing");
-// const Review = require("./models/review");
 const path = require("path");
 const methodOverride = require("method-override");
 const engine = require("ejs-mate");
-// const wrapAsync = require("./utils/wrapAsync");
-// const { wrap } = require("module");
 const ExpressError = require("./utils/ExpressError");
-// const { listingSchema, reviewSchema } = require("./schema");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
@@ -33,7 +28,6 @@ app.use(methodOverride("_method"));
 app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
 
-// const mongodbUrl = "mongodb://127.0.0.1:27017/wanderscape";
 const dbUrl = process.env.ATLASDB_URL;
 
 main()
