@@ -22,21 +22,19 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <select class="form-select" id="category" name="category">
-                        <option value="">
-                            <%=listing.category%>
-                        </option>
+                    <label for="category" class="form-label fw-semibold">Category</label>
+                    <select class="form-select shadow-sm" id="category" name="category" required>
                         <% categories.forEach(cat=> { %>
-                            <option value="<%= cat %>">
+                            <option value="<%= cat %>" <%=listing.category===cat ? 'selected' : '' %>>
                                 <%= cat %>
                             </option>
                             <% }) %>
                     </select>
                     <div class="invalid-feedback">
-                        Please select a category.
+                        Please select a valid category before submitting.
                     </div>
                 </div>
+
 
 
                 <div class="mb-3">
