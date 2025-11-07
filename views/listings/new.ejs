@@ -23,6 +23,20 @@
                     </div>
                 </div>
 
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <% categories.forEach(cat=> { %>
+                            <option value="<%= cat %>">
+                                <%= cat %>
+                            </option>
+                            <% }) %>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a category.
+                    </div>
+                </div>
 
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload Listing image</label>

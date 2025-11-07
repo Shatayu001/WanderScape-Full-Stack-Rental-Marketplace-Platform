@@ -11,6 +11,11 @@
             <h3>
                 <%= listing.title %>
             </h3>
+            <% if (listing.category) { %>
+                <p class="listing-category">
+                    <%= listing.category %>
+                </p>
+                <% } %>
         </div>
         <div class="card  col-6 offset-3 show-card listing-card">
             <img class="card-img-top show-img" src="<%= listing.image.url %>" alt="Card image cap">
@@ -32,6 +37,7 @@
                 <p>
                     <%= listing.country %>
                 </p>
+
                 </p>
             </div>
         </div>
@@ -52,11 +58,6 @@
                         <h4>Leave a Review</h4>
                         <form action="/listings/<%=listing._id %>/reviews" method="post" novalidate
                             class="needs-validation">
-                            <!-- <div>
-
-                                <input type="range" min="1" class="form-range" max="5" id="rating"
-                                    name="review[rating]">
-                            </div> -->
                             <div>
                                 <div>
                                     <label for="rating" class="form-label">Rating</label>
@@ -115,7 +116,7 @@
                                 <% } %>
                 </div>
                 <div class="col-8 offset-3 mt-3 mb-3">
-                    <h3>Where you'll be</h3>
+                    <h3>Where you' ll be</h3>
                     <div id="map"></div>
                 </div>
     </div>

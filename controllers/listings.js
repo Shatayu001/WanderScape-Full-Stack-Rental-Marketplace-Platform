@@ -10,8 +10,42 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.renderNewForm = (req, res) => {
-  res.render("listings/new.ejs");
+  const categories = [
+    "Trending",
+    "Rooms",
+    "Iconic Cities",
+    "Mountains",
+    "Castles",
+    "Pools",
+    "Camping",
+    "Farms",
+    "Arctic",
+    "Domes",
+    "Boats",
+  ];
+  res.render("listings/new.ejs", { categories });
 };
+
+module.exports.searchListing = wrapAsync(async (req, res) => {
+  const keyword = req.query.keyword || "";
+
+  if (keyword.trim().length < 1) {
+    req.flash("error", "Search cannot be empty");
+    return res.redirect("/listings");
+  }
+
+  const listings = await Listing.find({
+    $or: [
+      { title: { $regex: keyword, $options: "i" } },
+      { location: { $regex: keyword, $options: "i" } },
+      { country: { $regex: keyword, $options: "i" } },
+      { category: { $regex: keyword, $options: "i" } },
+      { description: { $regex: keyword, $options: "i" } },
+    ],
+  });
+
+  res.render("listings/searchResults", { listings, keyword });
+});
 
 module.exports.update = wrapAsync(async (req, res) => {
   if (!req.body.listing) {
@@ -24,6 +58,11 @@ module.exports.update = wrapAsync(async (req, res) => {
     let url = req.file.path;
     let filename = req.file.filename;
     listing.image = { url, filename };
+    await listing.save();
+  }
+
+  if (req.body.category) {
+    listing.category = req.body.category;
     await listing.save();
   }
 
@@ -61,7 +100,7 @@ module.exports.addNewListing = wrapAsync(async (req, res, next) => {
   newListing.image = { url, filename };
 
   newListing.geometry = response.body.features[0].geometry;
-
+  newListing.category = req.body.category;
   let savedListing = await newListing.save();
   console.log(savedListing);
   req.flash("success", "New Listing Created!");
@@ -69,6 +108,19 @@ module.exports.addNewListing = wrapAsync(async (req, res, next) => {
 });
 
 module.exports.renderEditForm = wrapAsync(async (req, res) => {
+  const categories = [
+    "Trending",
+    "Rooms",
+    "Iconic Cities",
+    "Mountains",
+    "Castles",
+    "Pools",
+    "Camping",
+    "Farms",
+    "Arctic",
+    "Domes",
+    "Boats",
+  ];
   let { id } = req.params;
   let listing = await Listing.findById(id);
   if (!listing) {
@@ -77,7 +129,7 @@ module.exports.renderEditForm = wrapAsync(async (req, res) => {
   }
   let originalImgUrl = listing.image.url;
   originalImgUrl = originalImgUrl.replace("/upload", "/upload/w_250");
-  res.render("listings/edit.ejs", { listing, originalImgUrl });
+  res.render("listings/edit.ejs", { listing, originalImgUrl, categories });
 });
 
 module.exports.destroyListing = wrapAsync(async (req, res) => {

@@ -35,6 +35,29 @@
             display: flex;
             align-items: center;
         }
+
+        #noResultsMessage {
+            display: none;
+            /* hidden by default */
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #6c757d;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            transform: translateY(10px);
+        }
+
+        #noResultsMessage.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #noResultsMessage i {
+            color: #ff385c;
+            margin-right: 0.4rem;
+        }
     </style>
 
     <div id="filters">
@@ -94,7 +117,7 @@
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
         <% for(let listing of allListing){ %>
             <a href="/listings/<%=listing._id%>" class="listing-link">
-                <div class="card cols listing-card">
+                <div class="card cols listing-card" data-category="<%= listing.category %>">
                     <img class="card-img-top" src="<%=listing.image.url%>" style="height: 20rem;" alt="Card image cap">
                     <div class="card-img-overlay"></div>
                     <div class="card-body">
@@ -111,6 +134,19 @@
             <% } %>
     </div>
 
+    <div id="noResultsMessage" class="text-center mt-8" style="font-size: 1.2rem;">
+        <p class="text-danger mb-1" style="font-weight: 500;">
+            <i class="fa-solid fa-circle-exclamation"></i> No stays found in this category 😕
+        </p>
+        <p class="text-secondary" style="font-size: 1rem;">
+            Discover more unique stays by exploring other categories or viewing all listings.
+        </p>
+        <a href="/listings" class="btn btn-danger mt-3 px-4">Back to all listings</a>
+    </div>
+
+
+
+
 
     <script>
         let taxSwitch = document.getElementById("switchCheckDefault");
@@ -126,4 +162,54 @@
 
             }
         })
+
+        const filters = document.querySelectorAll(".filter");
+        const allCards = document.querySelectorAll(".listing-card");
+        const noResultsMessage = document.getElementById("noResultsMessage");
+
+        function updateNoResultsMessage() {
+            const visibleCards = Array.from(allCards).filter(card => card.parentElement.style.display !== "none");
+            if (visibleCards.length === 0) {
+                noResultsMessage.classList.add("show");
+            } else {
+                noResultsMessage.classList.remove("show");
+            }
+        }
+
+        filters.forEach(filter => {
+            filter.addEventListener("click", () => {
+                const category = filter.querySelector("p").innerText.trim();
+                filters.forEach(f => f.classList.remove("active-filter"));
+                filter.classList.add("active-filter");
+
+                let visibleCount = 0;
+                allCards.forEach(card => {
+                    const listingCategory = card.dataset.category?.trim();
+                    if (listingCategory === category) {
+                        card.parentElement.style.display = "block";
+                        visibleCount++;
+                    } else {
+                        card.parentElement.style.display = "none";
+                    }
+                });
+
+                if (visibleCount === 0) {
+                    noResultsMessage.classList.add("show");
+                } else {
+                    noResultsMessage.classList.remove("show");
+                }
+            });
+        });
+
+        updateNoResultsMessage();
+
+        const style = document.createElement("style");
+        style.innerHTML = `
+        .active-filter {
+            opacity: 1 !important;
+            border-bottom: 2px solid #007bff;
+            transform: scale(1.05);
+        }
+    `;
+        document.head.appendChild(style);
     </script>

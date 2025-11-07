@@ -94,6 +94,7 @@ body {
 
 /** new page & edit page btn */
 .add-btn,
+.list-btn,
 .edit-btn {
   background-color: #fe424d !important;
   border: none !important;
@@ -102,6 +103,15 @@ body {
 /** show page */
 .show-img {
   height: 30vh;
+}
+
+.listing-category {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 2px;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
 }
 
 .btns {

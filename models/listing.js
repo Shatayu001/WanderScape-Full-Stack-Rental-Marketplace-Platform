@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Review = require("./review");
 const User = require("./user");
+const { required } = require("joi");
 const Schema = mongoose.Schema;
 
 const listingSchema = mongoose.Schema({
@@ -36,6 +37,23 @@ const listingSchema = mongoose.Schema({
       type: [Number],
       required: true,
     },
+  },
+  category: {
+    type: String,
+    enum: [
+      "Trending",
+      "Rooms",
+      "Iconic Cities",
+      "Mountains",
+      "Castles",
+      "Pools",
+      "Camping",
+      "Farms",
+      "Arctic",
+      "Domes",
+      "Boats",
+    ],
+    required: true,
   },
 });
 
