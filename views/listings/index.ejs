@@ -58,6 +58,51 @@
             color: #ff385c;
             margin-right: 0.4rem;
         }
+
+        /* Horizontal scroll for small screens */
+        @media (max-width: 768px) {
+            #filters {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                margin-top: 0.8rem;
+                justify-content: flex-start;
+                gap: 1rem;
+                padding-bottom: 0.5rem;
+                scrollbar-width: none;
+                /* hide scrollbar for Firefox */
+            }
+
+            #filters::-webkit-scrollbar {
+                display: none;
+                /* hide scrollbar for Chrome/Safari */
+            }
+
+            .filter {
+                flex: 0 0 auto;
+                margin: 0 0.8rem;
+                text-align: center;
+            }
+
+            .tax-toggle {
+                flex: 0 0 auto;
+                margin-left: 1rem;
+                padding: 0.8rem 1rem;
+                white-space: nowrap;
+            }
+        }
+
+        /* Slightly compact filters on very small screens */
+        @media (max-width: 480px) {
+            .filter p {
+                font-size: 0.7rem;
+            }
+
+            .tax-toggle label {
+                font-size: 0.75rem;
+            }
+        }
     </style>
 
     <div id="filters">
@@ -134,7 +179,7 @@
             <% } %>
     </div>
 
-    <div id="noResultsMessage" class="text-center mt-8" style="font-size: 1.2rem;">
+    <div id="noResultsMessage" class="text-center mt-8 mb-5" style="font-size: 1.2rem;">
         <p class="text-danger mb-1" style="font-weight: 500;">
             <i class="fa-solid fa-circle-exclamation"></i> No stays found in this category 😕
         </p>
