@@ -1,38 +1,64 @@
-# 🌍 WanderScape – Full-Stack Rental Marketplace Platform  
+# 🌍 WanderScape – Full-Stack Rental Marketplace (AI-Enhanced)
 
-**WanderScape** is a full-stack rental marketplace platform built to connect property owners with renters. It follows the **MVC (Model-View-Controller) architecture** for maintainability, scalability, and clean separation of concerns.  
-
-🚀 **[Live Demo](https://wanderscape-full-stack-rental.onrender.com/listings)**  
+WanderScape is a production-style full-stack rental marketplace that enables property owners to publish listings and renters to explore stays. The system follows a clean **MVC architecture**, integrates **cloud image storage**, supports **secure user authentication**, and includes a modern **AI-powered description generator** for property listings.
 
 ---
 
-## ✨ Features  
+## ✨ Key Features
 
-- 🔑 **User Authentication & Authorization** – Implemented with **Passport.js**.  
-- 🏡 **Rental Listings** – Owners can create, update, and delete property listings.  
-- 🖼️ **Image Uploads** – Integrated **Multer** for file handling and **Cloudinary** for cloud-based storage & serving images via URL.  
-- 📊 **MVC Structure** – Clear separation of Models, Views, and Controllers for scalability.  
-- 📱 **Responsive UI** – Built with **EJS templates** and reusable components.  
-- ✅ **Secure System** – Validation, middleware, and error handling for robust flows.  
+- 🔐 **User Authentication & Authorization**  
+  Implemented with Passport.js (local strategy), protected routes, and owner-only permissions.
+
+- 🏡 **Complete Property Listing System**  
+  Create, edit, delete, and search rental listings with validations and clean CRUD flows.
+
+- 🤖 **AI Description Generator**  
+  Integrated an AI-powered assistant using **Groq Cloud (Llama 3.3 70B)** to auto-generate property descriptions inside both New and Edit listing forms.
+
+- 🖼️ **Cloud Image Pipeline**  
+  Multer for uploads + Cloudinary for optimized cloud storage and delivery.
+
+- 🧰 **Scalable MVC Structure**  
+  Dedicated folders for controllers, routes, models, utilities, and views.
+
+- 📱 **Responsive UI**  
+  Built using EJS templates with modular components and Bootstrap 5.
+
+- 🧾 **Robust Validation & Error Handling**  
+  Centralized validation using Joi and custom middleware for clean request handling.
 
 ---
 
-## 🛠️ Tech Stack  
+## 🛠️ Tech Stack
 
-**Frontend**  
-- HTML, CSS, JavaScript  
-- EJS (Templating Engine)  
+### Frontend
+- EJS (Templating)
+- HTML5, CSS3, JavaScript
+- Bootstrap 5
 
-**Backend**  
-- Node.js  
-- Express.js  
-- MongoDB + Mongoose  
+### Backend
+- Node.js
+- Express.js
+- MongoDB + Mongoose
 
-**Integrations & Tools**  
-- Passport.js → Authentication & Authorization  
-- Multer → File upload handling  
-- Cloudinary → Image hosting & URL generation  
-- dotenv → Environment variable management  
+### Integrations & Tools
+- Groq AI API (Llama-3.3 model)
+- Cloudinary
+- Multer
+- Passport.js
+- Joi
+- dotenv
+
+---
+
+## 🤖 AI Description Feature
+
+A dedicated backend endpoint (`POST /listings/ai/description`) accepts the title and location of a property and returns an AI-generated description.
+
+- Powered by **Groq + Llama-3.3-70B-Versatile**
+- Generates warm, travel-friendly, 120–180 word descriptions
+- Integrated directly into the form using AJAX (fetch)
+- Works on both **Create Listing** and **Edit Listing** pages
 
 ---
 
@@ -81,3 +107,26 @@ MajorProject/
 │── schema.js          # Joi validation schemas
 │── package.json
 │── README.md
+
+
+---
+
+## 🚀 Live Demo
+
+https://wanderscape-full-stack-rental.onrender.com/listings
+
+---
+
+## 📌 Future Enhancements
+
+- AI-based price recommendations  
+- Category prediction based on description  
+- Interactive map for properties  
+- Review sentiment analysis  
+
+---
+
+## 👤 Author
+
+**Shatayu Khante**
+
