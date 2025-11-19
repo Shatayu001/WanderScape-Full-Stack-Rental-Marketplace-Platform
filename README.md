@@ -108,7 +108,7 @@ MajorProject/
 │── package.json
 │── README.md
 
-
+```
 ---
 
 ## 🚀 Live Demo
