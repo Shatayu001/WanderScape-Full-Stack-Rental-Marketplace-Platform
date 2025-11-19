@@ -14,8 +14,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]" required type="text"
-                        class="form-control"><%=listing.description%></textarea>
+                    <textarea id="description" name="listing[description]" required
+                        class="form-control"> <%= listing.description %></textarea>
+                    <button id="aiGenerateBtn" type="button" class="btn btn-outline-primary mt-2">
+                        ✨ Generate AI Description
+                    </button>
                     <div class="invalid-feedback">
                         Please enter a short description.
                     </div>
@@ -23,7 +26,7 @@
 
                 <div class="mb-3">
                     <label for="category" class="form-label fw-semibold">Category</label>
-                    <select class="form-select shadow-sm" id="category" name="category" required>
+                    <select class="form-select shadow-sm" id="category" name="listing[category]" required>
                         <% categories.forEach(cat=> { %>
                             <option value="<%= cat %>" <%=listing.category===cat ? 'selected' : '' %>>
                                 <%= cat %>
@@ -56,7 +59,7 @@
                         </div>
                     </div>
                     <div class="mb-3 col-md-8">
-                        <label for="country" class="form-label">Country</label>
+                        <label for="country" class="form-label">Location</label>
                         <input name="listing[location]" type="text" required class="form-control"
                             value="<%= listing.location %>">
                         <div class="invalid-feedback">
@@ -65,7 +68,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
+                    <label for="location" class="form-label">Country</label>
                     <input name="listing[country]" type="text" required class="form-control"
                         value="<%= listing.country %>">
                     <div class="invalid-feedback">
@@ -76,3 +79,39 @@
             </form>
         </div>
     </div>
+
+    <script>
+        const btn = document.getElementById("aiGenerateBtn");
+        const desc = document.getElementById("description");
+
+        btn.addEventListener("click", async () => {
+            btn.disabled = true;
+            btn.innerText = "⏳ Generating...";
+
+            const title = document.querySelector("input[name='listing[title]']").value || "";
+            const location = document.querySelector("input[name='listing[location]']").value || "";
+
+
+            if (!title || !location) {
+                alert("Please enter both title and location before generating.");
+                btn.innerText = "✨ Generate AI Description";
+                return;
+            }
+
+            try {
+                const res = await fetch("/listings/ai/description", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title, location })
+                });
+                const data = await res.json();
+                desc.value = data.description;
+                btn.innerText = "✨ Regenerate";
+            } catch (error) {
+                alert("AI failed to generate description.");
+                btn.innerText = "✨ Generate AI Description";
+            }
+
+            btn.disabled = false;
+        });
+    </script>
