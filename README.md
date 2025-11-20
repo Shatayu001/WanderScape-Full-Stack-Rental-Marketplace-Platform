@@ -4,6 +4,12 @@ WanderScape is a production-style full-stack rental marketplace that enables pro
 
 ---
 
+## 🚀 Live Demo
+
+https://wanderscape-full-stack-rental.onrender.com/listings
+
+---
+
 ## ✨ Key Features
 
 - 🔐 **User Authentication & Authorization**  
@@ -109,11 +115,6 @@ MajorProject/
 │── README.md
 
 ```
----
-
-## 🚀 Live Demo
-
-https://wanderscape-full-stack-rental.onrender.com/listings
 
 ---
 
